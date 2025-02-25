@@ -40,6 +40,17 @@ app.get("/todos", async (req, res) => {
 })
 
 // get a single todo
+app.get("/todos/:id", async (req, res) => {
+   try {
+      const { id } = req.params;
+      const todo = await pool.query("SELECT * FROM todo WHERE todo_id = $1", 
+         [id]
+      );
+      res.json(todo.rows[0]);
+   } catch (err) {
+      console.error(err.message)
+   }
+})
 
 
 // update a todo
@@ -64,7 +75,7 @@ app.delete("/todos/:id", async (req, res) => {
    try {
       const { id } = req.params;
       const deleteTodo = await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
-      res.json("Todo was deleted");
+      res.json("Deleted: " + deleteTodo[0]);
       
    } catch (err) {
       console.log(err.message);

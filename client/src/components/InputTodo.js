@@ -15,8 +15,9 @@ const InputTodo = () => {
                 body: JSON.stringify(body)
             });
 
+            console.log("Adding new todo: " + description)
             // temporary
-            console.log(response);
+            window.location = "/";
             
         } catch (err) {
            
